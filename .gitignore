@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+
+# Obsidian: device-specific state
+.obsidian/workspace*.json
+.obsidian/cache
+.trash/
+
+# Obsidian: plugin data can hold tokens and per-device settings.
+# This covers the Git plugin (.obsidian/plugins/obsidian-git/data.json).
+# Plugin code (main.js, manifest.json) is still tracked so the plugin list is shared.
+.obsidian/plugins/*/data.json
+
+# Obsidian Sync's own per-device state
+.obsidian/sync.json
+
+# Tooling
+__pycache__/
+.task/

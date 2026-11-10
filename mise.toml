@@ -1,0 +1,4 @@
+# Tools for the vault's helper tasks. Install with: mise install
+[tools]
+task = "3"        # go-task, runs Taskfile.yml
+python = "3.12"   # scripts/vault.py (standard library only)

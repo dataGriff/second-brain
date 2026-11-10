@@ -1,0 +1,52 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "Second brain inbox",
+	"behavior": "create",
+	"noteContentFormat": "## TL;DR\n\n{{\"Summarise this page as a TL;DR of exactly 3 short bullet points in plain language. Return only the 3 markdown bullets, nothing else.\"}}\n\n## Clip\n\n{{content}}",
+	"properties": [
+		{
+			"name": "type",
+			"value": "clip",
+			"type": "text"
+		},
+		{
+			"name": "status",
+			"value": "inbox",
+			"type": "text"
+		},
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "source",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "author",
+			"value": "{{author}}",
+			"type": "text"
+		},
+		{
+			"name": "clipped",
+			"value": "{{date|date:\"YYYY-MM-DDTHH:mm\"}}",
+			"type": "datetime"
+		},
+		{
+			"name": "created",
+			"value": "{{date|date:\"YYYY-MM-DD\"}}",
+			"type": "date"
+		},
+		{
+			"name": "tags",
+			"value": "clip",
+			"type": "multitext"
+		}
+	],
+	"triggers": [],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD-HHmm\"}}-{{title|slice:0,60|kebab|safe_name}}",
+	"path": "00-inbox",
+	"context": "{{content}}"
+}

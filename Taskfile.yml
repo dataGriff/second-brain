@@ -1,0 +1,40 @@
+version: "3"
+
+# Run `task` to list tasks. Logic lives in scripts/vault.py (stdlib Python only).
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+    silent: true
+
+  review:
+    desc: Count unprocessed inbox notes, stale projects, and intent/project gaps
+    cmds:
+      - python3 scripts/vault.py review
+    silent: true
+
+  links:
+    desc: Check for broken wikilinks (fails if any) and list orphan notes
+    cmds:
+      - python3 scripts/vault.py links
+    silent: true
+
+  new:daily:
+    desc: Create today's daily note in 05-journal/ (no-op if it exists)
+    cmds:
+      - python3 scripts/vault.py new daily
+    silent: true
+
+  new:weekly:
+    desc: Create this week's review note in 05-journal/ (no-op if it exists)
+    cmds:
+      - python3 scripts/vault.py new weekly
+    silent: true
+
+  new:project:
+    desc: 'Create a project note. Usage: task new:project -- "Project name" [INTENT=okr-file-name]'
+    cmds:
+      - python3 scripts/vault.py new project {{if .INTENT}}--intent {{.INTENT | quote}}{{end}} {{.CLI_ARGS}}
+    silent: true
