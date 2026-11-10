@@ -3,6 +3,7 @@ type: project
 status: planned
 intent: "[[]]"
 due:
+tracker:
 created: {{date:YYYY-MM-DD}}
 tags: [project]
 ---
@@ -16,7 +17,7 @@ tags: [project]
 - [ ] 
 
 ## Plan
-<!-- Ordered steps to get from actual state to the spec -->
+<!-- Ordered steps to get from actual state to the spec. If tasks live in a tracker (set `tracker:` above), link to it here instead of listing them. -->
 - [ ] 
 
 ## System

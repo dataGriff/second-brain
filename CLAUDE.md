@@ -18,6 +18,17 @@ Everything here serves one reconciliation loop, Terraform-style (desired state v
 
 The weekly review is the `plan` output: it reports drift and proposes changes. I decide what to apply.
 
+## What is a project, and what isn't
+
+Only projects go through the loop and need an intent link. Everything else stands on its own.
+
+- **Project**: finite work with an outcome and a deadline, more than one step. Needs `intent`, `status`, `due`.
+- **One-step task**: a line in the daily note. Not a project note.
+- **Open-ended responsibility** (no end date): an area in `03-areas/`. No intent link.
+- **Inbox notes, clips, journal entries, resources**: no intent link required. Resources link to what they support only where there is a real connection.
+
+Small projects stay small: a one-line Spec and a one-line Plan make a complete project note. Don't pad sections or turn tasks into projects to satisfy the structure.
+
 ## Structure
 
 | Folder | Holds |
@@ -46,7 +57,7 @@ Every note starts with YAML frontmatter. Required on all notes: `type`, `status`
 | `note` | `00-inbox/` | `inbox`, `processed` | `processed`, `distilled_to` once distilled |
 | `clip` | `00-inbox/` | `inbox`, `processed` | `source` (URL, required), `title`, `author`, `clipped`; `processed`, `distilled_to` once distilled |
 | `okr` | `01-intent/` | `active`, `achieved`, `dropped` | `period` (e.g. `2026-Q4`) |
-| `project` | `02-projects/` | `planned`, `active`, `paused`, `done`, `archived` | `intent` (required), `due` (`YYYY-MM-DD`) |
+| `project` | `02-projects/` | `planned`, `active`, `paused`, `done`, `archived` | `intent` (required), `due` (`YYYY-MM-DD`), `tracker` (optional URL) |
 | `area` | `03-areas/` | `active`, `archived` | |
 | `resource` | `04-resources/` | `active`, `archived` | `source` when it came from a clip or URL |
 | `daily` | `05-journal/` | `active` | |
@@ -58,6 +69,15 @@ Rules:
 - Every project has `intent: "[[...]]"`, `status` and `due`. A project with no intent link is a defect that the weekly review reports.
 - Inbox notes keep `status: inbox` until processed. Anything moved to `99-archive/` gets `status: archived` (processed inbox notes keep `status: processed`).
 - Don't invent new `type` or `status` values. If one seems needed, ask.
+
+## Projects tracked elsewhere
+
+Each project has one source of truth for its task list.
+
+- **No tracker** (solo, personal, non-code work): the `## Plan` checklist in the project note is the plan.
+- **Has a tracker** (Linear, GitHub Issues or a milestone): tasks live there. Set `tracker: <url>` in the project's frontmatter, and make `## Plan` a link to it plus at most a line or two of approach. Don't copy issues into checkboxes or mirror their status in the note.
+
+Either way the vault keeps Intent, Spec and Feedback, and decisions or lessons from tracked work are captured here, not left in closed tickets. In the weekly review, a project with a `tracker` isn't stale just because its note is unchanged: check the tracker for the week's activity if a tool for it is available, otherwise go by the daily notes and say that the tracker wasn't checked.
 
 ## Naming and linking
 
@@ -115,6 +135,16 @@ This repo uses `main` only. No feature branches, no pull requests.
 
 Cloud sessions: push to `main` as above. If the session's environment refuses pushes to `main` and only allows its own session branch, push there, don't open a PR, and tell me the commands to fast-forward `main` from the Mac:
 `git fetch origin && git merge --ff-only origin/<session-branch> && git push origin main`.
+
+## Code sessions with the vault attached
+
+When a session has this vault and a code repository attached together:
+
+1. **Before coding**, read the project note the user names (or find it by the repo or project name and confirm): Intent, Spec, Plan, and the resource notes it links to. Read specific notes, not the whole vault.
+2. **Each repo keeps its own git rules.** The push-to-`main`, no-PR workflow above applies to this vault only. In the code repo follow that repo's `CLAUDE.md` and the session's branch instructions. Never apply the vault's rules there, or the code repo's here.
+3. **After the work**, write back to the vault with small edits in their own `claude:` commit: tick the Plan step if the plan lives in the note, add a dated line under `## Feedback` saying what was done with a link to the PR or commit, and capture any decision or lesson worth keeping as a new inbox note.
+4. **Technical facts about the code** (how to build, test, deploy; architecture conventions) belong in the code repo's own docs, not here. The vault holds why the project exists and what was learned.
+5. Don't copy vault content into the code repo. The vault is private; the code repo may not be.
 
 ## Skills
 
